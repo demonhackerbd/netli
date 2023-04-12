@@ -1,0 +1,54 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+  </head>
+  <body>
+    <form id="url-form">
+      <label for="long-url">Long URL:</label>
+      <input type="text" id="long-url" name="longUrl" required />
+      <button type="submit" id="shorten-btn">Short URL</button>
+    </form>
+
+    <div id="short-url-container" style="display: none">
+      <p>Short URL:</p>
+      <p><a id="short-url" target="_blank"></a></p>
+      <button type="button" id="copy-btn">Copy URL</button>
+    </div>
+
+    <script>
+      const form = document.getElementById('url-form');
+      const shortenBtn = document.getElementById('shorten-btn');
+      const shortUrlContainer = document.getElementById('short-url-container');
+      const shortUrl = document.getElementById('short-url');
+      const copyBtn = document.getElementById('copy-btn');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const longUrl = document.getElementById('long-url').value;
+        fetch('/shorten', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ longUrl }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            shortUrl.innerText = data.shortUrl;
+            shortUrl.href = data.shortUrl;
+            shortUrlContainer.style.display = 'block';
+          });
+      });
+
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(shortUrl.innerText);
+        alert('URL copied to clipboard!');
+      });
+    </script>
+  </body>
+</html>
