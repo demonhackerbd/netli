@@ -1,54 +1,80 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
-  </head>
-  <body>
-    <form id="url-form">
-      <label for="long-url">Long URL:</label>
-      <input type="text" id="long-url" name="longUrl" required />
-      <button type="submit" id="shorten-btn">Short URL</button>
-    </form>
-
-    <div id="short-url-container" style="display: none">
-      <p>Short URL:</p>
-      <p><a id="short-url" target="_blank"></a></p>
-      <button type="button" id="copy-btn">Copy URL</button>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .url-input {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff2c2c;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .button:hover {
+            background-color: #f00;
+        }
+        .copy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff2c2c;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .copy-button:hover {
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>URL Shortener</h1>
+        <input type="text" class="url-input" placeholder="Enter long URL">
+        <br>
+        <button class="button">Short URL</button>
+        <button class="copy-button">Copy URL</button>
     </div>
-
-    <script>
-      const form = document.getElementById('url-form');
-      const shortenBtn = document.getElementById('shorten-btn');
-      const shortUrlContainer = document.getElementById('short-url-container');
-      const shortUrl = document.getElementById('short-url');
-      const copyBtn = document.getElementById('copy-btn');
-
-      form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const longUrl = document.getElementById('long-url').value;
-        fetch('/shorten', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'app.js',
-          },
-          body: JSON.stringify({ longUrl }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            shortUrl.innerText = data.shortUrl;
-            shortUrl.href = data.shortUrl;
-            shortUrlContainer.style.display = 'block';
-          });
-      });
-
-      copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(shortUrl.innerText);
-        alert('URL copied to clipboard!');
-      });
-    </script>
-  </body>
+    <script src="index.js"></script>
+</body>
 </html>
