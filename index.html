@@ -78,7 +78,7 @@
 		function shortenUrl() {
 			var longUrl = document.getElementById("longUrl").value;
 			if (longUrl != "") {
-				fetch('https://api.netlify.com/api/v1/sites/netlify-site-name.netlify.app/forms/form-name/submissions', {
+				fetch('https://api.netlify.com/api/v1/sites/netli-short.netlify.app//forms/form-name/submissions', {
 					method: 'POST',
 					body: JSON.stringify({longUrl: longUrl}),
 					headers: {
@@ -87,7 +87,7 @@
 				})
 				.then(response => response.json())
 				.then(data => {
-					var shortUrl = 'https://' + data.id + '.netlify.app';
+					var shortUrl = 'https://https://netli-short.netlify.app/'data+id';
 					alert('Short URL: ' + shortUrl);
 				})
 				.catch(error => {
@@ -101,7 +101,7 @@
 
 		function copyUrl() {
 			var shortUrl = document.createElement('input');
-			shortUrl.value = 'https://657ty6.netlify.app';
+			shortUrl.value = 'https://netli-short.netlify.app/';
 			document.body.appendChild(shortUrl);
 			shortUrl.select();
 			document.execCommand('copy');
